@@ -8,11 +8,22 @@
 #ifndef DRAWABLE_H_
 #define DRAWABLE_H_
 
+#include <string>
+#include <map>
+
+using namespace std;
+
 class Drawable {
+private:
+	map<string, SDL_Surface* > surfaces;
 public:
 	Drawable();
 
 	virtual void draw();
+
+	void loadIMG(string filename, string id);
+
+	void applySurface(int x, int y, string id, SDL_Surface* destination);
 
 	virtual ~Drawable();
 };
