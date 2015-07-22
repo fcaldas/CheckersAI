@@ -13,6 +13,10 @@ Piece::Piece(int x, int y) {
 }
 
 Piece::~Piece() {
-	// TODO Auto-generated destructor stub
+
+}
+
+void Piece::draw(SDL_Surface * screen){
+
 }
 

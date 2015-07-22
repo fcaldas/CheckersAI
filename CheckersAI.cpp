@@ -9,7 +9,7 @@
 #include <SDL/SDL.h>
 #include <string>
 #include "utils/sdlfunctions.h"
-
+#include "objects/Table.h"
 // Globals:
 
 // Defining screen attributes:
@@ -37,11 +37,9 @@ int main(int argc, char* argv[]) {
     } // Or someone changed the image format from 24-bit.. cough.
 
     // Set the caption on the screen like a pro:
-    SDL_WM_SetCaption("Hi world", NULL);
+    SDL_WM_SetCaption("AICheckers", NULL);
 
-    // Load a pair of images (24-bit bitmaps)
-    fg = loadIMG("hw.bmp");
-    bg = loadIMG("bg.bmp");
+
     // As the images are not 32-bit like the screen, we have to change them to 32-bit
     applySurface(0, 0, bg, screen);
     applySurface(180, 140, fg, screen);
@@ -51,15 +49,10 @@ int main(int argc, char* argv[]) {
         return 1; // The screen failed to be updated...
     }
 
+    Table t;
+    t.draw(screen);
+
     SDL_Delay(1000);
-    /* I created a variadic function to handle 1 or more surfaces at once.
-       The problem is that I haven't finished learning variadic functions yet... */
-    FreeIMG(fg);
-    FreeIMG(bg);
-    // The following could also be used, but when I learn variadic functions properly... ZING.
-    // SDL_FreeSurface(fg);
-    // SDL_FreeSurface(bg);
-    // Sleep for 1 second:
     SDL_Delay(1000);
     // Return 0.
     return 0;

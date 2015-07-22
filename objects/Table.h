@@ -10,7 +10,6 @@
 
 #include "../utils/sdlfunctions.h"
 #include "Drawable.h"
-#include <SDL/SDL.h>
 #include <vector>
 #include "Piece.h"
 
@@ -23,6 +22,7 @@ private:
 public:
 	Table();
 	virtual ~Table();
+	void draw(SDL_Surface* screen);
 };
 
 #endif /* TABLE_H_ */

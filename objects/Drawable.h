@@ -10,6 +10,7 @@
 
 #include <string>
 #include <map>
+#include <SDL/SDL.h>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ private:
 public:
 	Drawable();
 
-	virtual void draw();
+	virtual void draw(SDL_Surface* screen) = 0;
 
 	void loadIMG(string filename, string id);
 
