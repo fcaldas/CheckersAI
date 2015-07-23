@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Create the Window :O
-    screen = SDL_SetVideoMode(640,480,32,SDL_SWSURFACE);
+    screen = SDL_SetVideoMode(480,480,32,SDL_SWSURFACE);
 
     Drawable::screen = screen;
 

@@ -15,15 +15,15 @@ Table::Table() {
 	int row = 0;
 
 	for(int i = 0; i < 12; i++){
-		row = i%4;
+		row = i/4;
 		int offset = ( row%2 == 1)?0:1;
-		pcBlack.push_back(Piece(offset + (i-row*4)*2, row, true));
+		pcBlack.push_back(Piece(offset+(i-row*4)*2, row, true));
 	}
 
 	for(int i = 0; i < 12; i++){
-		row = i%4;
-		int offset = (row == 1)?0:1;
-		pcWhite.push_back(Piece(i - row * 4 + offset, 5 + row, false));
+		row = i/4;
+		int offset = ( row%2 == 1)?1:0;
+		pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, false));
 	}
 
 	this->loadIMG("./img/brownblock.bmp", "bblock");
