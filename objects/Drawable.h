@@ -17,7 +17,11 @@ using namespace std;
 class Drawable {
 private:
 	map<string, SDL_Surface* > surfaces;
+
 public:
+
+	static SDL_Surface * screen;
+
 	Drawable();
 
 	virtual void draw(SDL_Surface* screen) = 0;

@@ -10,16 +10,20 @@
 
 #include "Drawable.h"
 
-class Piece : public Drawable {
+class Piece{
 private:
 	int x, y;
-
+	bool isblack;
 public:
-	Piece(int x, int y);
+	Piece(int x, int y, bool isBlack);
 
 	virtual ~Piece();
 
-	void draw(SDL_Surface* screen);
+	bool isBlack();
+
+	int getX();
+
+	int getY();
 };
 
 #endif /* PIECE_H_ */

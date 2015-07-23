@@ -1,23 +1,19 @@
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include "Drawable.h"
 #include <iostream>
 
 using namespace std;
 
+SDL_Surface * Drawable::screen;
+
 void Drawable::loadIMG(string filename, string id) {
-    SDL_Surface* temp = SDL_LoadBMP(filename.c_str()); // Load the image
-    SDL_Surface* surface = NULL;
-    //never reload
-    if(surfaces.count(id) == true)
-    	return;
-    if (temp) { // If temp != 0, the image loaded successfully.
-        surface = SDL_DisplayFormat(temp); // Format the image correctly (32 bit instead of 24 bit)
-        SDL_FreeSurface(temp); // Free the temporary surface from memory.
-    }else{
-    	 cout << "Error: could not load image ("<< filename<<")" <<  SDL_GetError() <<endl;
-    }
-    surfaces[id] = surface;
-    return; // Return the hopefully successfully loaded surface
+
+    SDL_Surface* loadedSurface = IMG_Load(filename.c_str());
+
+    surfaces[id] = loadedSurface;// optimizedSurface;
+    return ;
+
 }
 
 void Drawable::applySurface(int x, int y, string id, SDL_Surface* destination) {

@@ -7,15 +7,15 @@
 //============================================================================
 // main.cpp
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <string>
+#include "objects/Drawable.h"
 #include "utils/sdlfunctions.h"
 #include "objects/Table.h"
-// Globals:
+#include <iostream>
 
-// Defining screen attributes:
-const int sc_width  = 640; // Width
-const int sc_height = 480; // Height
-const int sc_bpp    = 32;  // Bits per pixel.
+using namespace std;
+// Globals:
 
 // foreground, background, screen
 SDL_Surface* fg = NULL, *bg = NULL, *screen = NULL;
@@ -30,7 +30,16 @@ int main(int argc, char* argv[]) {
     }
 
     // Create the Window :O
-    screen = SDL_SetVideoMode(sc_width, sc_height, sc_bpp, SDL_SWSURFACE);
+    screen = SDL_SetVideoMode(640,480,32,SDL_SWSURFACE);
+
+    Drawable::screen = screen;
+
+    int flags = IMG_INIT_JPG | IMG_INIT_PNG;
+    int initted=IMG_Init(flags);
+    if( initted & flags != flags) {
+        cout<<"could not init SDL_Image" << endl;
+        cout<<"Reason: " << IMG_GetError() << endl;
+    }
 
     if (screen == NULL) {
         return 1; // SDL is being a bitch and the screen failed to load :O
@@ -51,8 +60,8 @@ int main(int argc, char* argv[]) {
 
     Table t;
     t.draw(screen);
-
-    SDL_Delay(1000);
+    SDL_Flip( screen );
+    SDL_Delay(10000);
     SDL_Delay(1000);
     // Return 0.
     return 0;

@@ -7,16 +7,24 @@
 
 #include "Piece.h"
 
-Piece::Piece(int x, int y) {
+Piece::Piece(int x, int y, bool isBlack) {
 	this->x = x;
 	this->y = y;
+	this->isblack = isBlack;
 }
 
 Piece::~Piece() {
 
 }
 
-void Piece::draw(SDL_Surface * screen){
-
+bool Piece::isBlack(){
+	return this->isblack;
 }
 
+int Piece::getX(){
+	return this->x;
+}
+
+int Piece::getY(){
+	return this->y;
+}
