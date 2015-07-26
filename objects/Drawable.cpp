@@ -10,7 +10,10 @@ SDL_Surface * Drawable::screen;
 void Drawable::loadIMG(string filename, string id) {
 
     SDL_Surface* loadedSurface = IMG_Load(filename.c_str());
+    if(loadedSurface == NULL){
+    	cout<<SDL_GetError()<<flush<<endl;
 
+    }
     surfaces[id] = loadedSurface;// optimizedSurface;
     return ;
 

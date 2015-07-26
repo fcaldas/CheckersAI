@@ -11,15 +11,21 @@
 
 #include "Table.h"
 #include "Piece.h"
+#include "Player.h"
 
-class Game {
+class Game : Drawable{
+private:
+	Table table;
+	int clickX, clickY;
+	Player pWhite(true, table), pBlack(false, table);
 public:
 
 	Game();
 	virtual ~Game();
 
-	void Draw();
+	void draw(SDL_Surface *screen);
 
+	void click(int x, int y);
 };
 
 #endif /* GAME_H_ */

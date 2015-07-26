@@ -2,8 +2,6 @@
 // Name        : CheckersAI.cpp
 // Author      : Filipe Caldas
 // Version     :
-// Copyright   : 
-// Description : Hello World in C, Ansi-style
 //============================================================================
 // main.cpp
 #include <SDL/SDL.h>
@@ -11,7 +9,7 @@
 #include <string>
 #include "objects/Drawable.h"
 #include "utils/sdlfunctions.h"
-#include "objects/Table.h"
+#include "objects/Game.h"
 #include <iostream>
 
 using namespace std;
@@ -20,8 +18,8 @@ using namespace std;
 // foreground, background, screen
 SDL_Surface* fg = NULL, *bg = NULL, *screen = NULL;
 
-// Prototypes:
-
+const Uint32 fps = 40;
+const Uint32 minframetime = 1000 / fps;
 // Main:
 int main(int argc, char* argv[]) {
     // Try to initialize SDL:
@@ -58,11 +56,36 @@ int main(int argc, char* argv[]) {
         return 1; // The screen failed to be updated...
     }
 
-    Table t;
-    t.draw(screen);
-    SDL_Flip( screen );
-    SDL_Delay(10000);
-    SDL_Delay(1000);
+    Game game;
+
+    bool running = true;
+    SDL_Event event;
+    Uint32 frametime;
+
+    while (running)
+    {
+
+      frametime = SDL_GetTicks ();
+
+      while (SDL_PollEvent (&event) != 0)
+      {
+			switch (event.type)
+			{
+			  case SDL_QUIT:    running = false;
+								break;
+			  case SDL_MOUSEBUTTONDOWN:
+								game.click(event.button.x, event.button.y);
+								break;
+			}
+      }
+
+      if (SDL_GetTicks () - frametime < minframetime)
+        SDL_Delay (minframetime - (SDL_GetTicks () - frametime));
+      game.draw(screen);
+      SDL_Flip( screen );
+
+    }
+
     // Return 0.
     return 0;
 }

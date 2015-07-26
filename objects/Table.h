@@ -12,6 +12,9 @@
 #include "Drawable.h"
 #include <vector>
 #include "Piece.h"
+#include <utility>
+
+typedef pair<int,int> position;
 
 using namespace std;
 
