@@ -6,14 +6,15 @@
  */
 
 #include "Player.h"
+#include "Table.h"
+
 #include <iostream>
 
 using namespace std;
 
-Player::Player(bool isWhite, Table table) {
+Player::Player(pc_color color, Table *table) {
 	this->table = table;
-	this->isWhite = isWhite;
-
+	this->color = color;
 }
 
 Player::~Player() {
@@ -26,6 +27,10 @@ Player::~Player() {
  *
  */
 bool Player::isMoveValid(position initial, position final){
+	Piece *toMove = table->getPiece(initial,this->color);
+	if(toMove == NULL)
+		return false;
+
 	//TODO: implement
 	return false;
 }

@@ -17,7 +17,8 @@ class Game : Drawable{
 private:
 	Table table;
 	int clickX, clickY;
-	Player pWhite(true, table), pBlack(false, table);
+	Player *player1;
+	Player *player2;
 public:
 
 	Game();

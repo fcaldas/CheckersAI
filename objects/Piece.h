@@ -7,8 +7,10 @@
 
 #ifndef PIECE_H_
 #define PIECE_H_
-
+#include <utility>
 #include "Drawable.h"
+
+typedef pair<int,int> position;
 
 class Piece{
 private:
@@ -24,6 +26,8 @@ public:
 	int getX();
 
 	int getY();
+
+	bool isAtPosition(position p);
 };
 
 #endif /* PIECE_H_ */

@@ -28,3 +28,9 @@ int Piece::getX(){
 int Piece::getY(){
 	return this->y;
 }
+
+bool Piece::isAtPosition(position p){
+	if(getX() == p.first && getY() == p.second)
+		return true;
+	return false;
+}

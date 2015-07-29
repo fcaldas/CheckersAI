@@ -12,10 +12,10 @@
 
 class Player {
 private:
-	bool isWhite;
-	Table table;
+	pc_color color;
+	Table *table;
 public:
-	Player(bool isWhite, Table table);
+	Player(pc_color color, Table *table);
 
 	~Player();
 

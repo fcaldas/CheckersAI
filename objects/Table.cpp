@@ -10,20 +10,30 @@
 
 using namespace std;
 
-Table::Table() {
+Table::Table():Table(WHITE){
+}
+
+
+Table::Table(pc_color colorup) {
 	//populate the table
 	int row = 0;
-
+	this->color_up = colorup;
 	for(int i = 0; i < 12; i++){
 		row = i/4;
 		int offset = ( row%2 == 1)?0:1;
-		pcBlack.push_back(Piece(offset+(i-row*4)*2, row, true));
+		if(colorup == WHITE)
+			pcWhite.push_back(Piece(offset+(i-row*4)*2, row, true));
+		else
+			pcBlack.push_back(Piece(offset+(i-row*4)*2, row, true));
 	}
 
 	for(int i = 0; i < 12; i++){
 		row = i/4;
 		int offset = ( row%2 == 1)?1:0;
-		pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, false));
+		if(colorup == WHITE)
+			pcBlack.push_back(Piece((i - row * 4)*2 + offset, 5 + row, false));
+		else
+			pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, false));
 	}
 
 	this->loadIMG("./img/brownblock.bmp", "bblock");
@@ -36,6 +46,24 @@ Table::~Table() {
 	// TODO Auto-generated destructor stub
 }
 
+pc_color Table::getPlayerUp(){
+	return this->color_up;
+}
+
+Piece* Table::getPiece(position p, pc_color color){
+	if(color == WHITE){
+		for(int i = 0; i < this->pcWhite.size(); i++){
+			if(pcWhite[i].isAtPosition(p))
+				return &(pcWhite[i]);
+		}
+	}else if(color == BLACK){
+		for(int i = 0; i < this->pcBlack.size(); i++){
+			if(pcBlack[i].isAtPosition(p))
+				return &(pcBlack[i]);
+		}
+	}
+	return NULL;
+}
 
 void Table::draw(SDL_Surface * screen){
 	for(int i = 0; i < 8; i ++){
