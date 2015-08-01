@@ -16,6 +16,7 @@ class Piece{
 private:
 	int x, y;
 	bool isblack;
+	bool king;
 public:
 	Piece(int x, int y, bool isBlack);
 
@@ -28,6 +29,8 @@ public:
 	int getY();
 
 	bool isAtPosition(position p);
+
+	bool isKing();
 };
 
 #endif /* PIECE_H_ */

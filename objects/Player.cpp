@@ -28,9 +28,17 @@ Player::~Player() {
  */
 bool Player::isMoveValid(position initial, position final){
 	Piece *toMove = table->getPiece(initial,this->color);
+	bool isKing = toMove->isKing();
 	if(toMove == NULL)
 		return false;
+	//playing from top
+	if(table->getPlayerUp() == this->color){
+		position possible1, possible2;
+		possible1.y = init
+	}else{
+	//playing from bottom
 
+	}
 	//TODO: implement
 	return false;
 }

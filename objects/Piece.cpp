@@ -11,6 +11,7 @@ Piece::Piece(int x, int y, bool isBlack) {
 	this->x = x;
 	this->y = y;
 	this->isblack = isBlack;
+	this->king = false;
 }
 
 Piece::~Piece() {
@@ -19,6 +20,10 @@ Piece::~Piece() {
 
 bool Piece::isBlack(){
 	return this->isblack;
+}
+
+bool Piece::isKing(){
+	return king;
 }
 
 int Piece::getX(){
