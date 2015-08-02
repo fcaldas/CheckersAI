@@ -29,15 +29,72 @@ Player::~Player() {
 bool Player::isMoveValid(position initial, position final){
 	Piece *toMove = table->getPiece(initial,this->color);
 	bool isKing = toMove->isKing();
+	pc_color otherColor = (this->color == WHITE)?BLACK:WHITE;
 	if(toMove == NULL)
 		return false;
+	bool isLeft = (initial.first > final.first)?true:false;
+  	bool hasPieceBetween = false;
+
+
 	//playing from top
 	if(table->getPlayerUp() == this->color){
-		position possible1, possible2;
-		possible1.y = init
+		if(isLeft){
+			position pLook = initial;
+			pLook.first -= 1;
+			pLook.second += 1;
+			Piece *enemy = table->getPiece(pLook, otherColor);
+			if(enemy == NULL &&
+			   final.second == pLook.second &&
+			   final.first == pLook.first)
+				return true;
+			else if(enemy != NULL &&
+					final.second == pLook.second + 1 &&
+					final.first == pLook.first - 1)
+				return true;
+		}else{
+			position pLook = initial;
+			pLook.first += 1;
+			pLook.second += 1;
+			Piece *enemy = table->getPiece(pLook, otherColor);
+			if(enemy == NULL &&
+			   final.second == pLook.second &&
+			   final.first == pLook.first)
+				return true;
+			else if(enemy != NULL &&
+					final.second == pLook.second + 1 &&
+					final.first == pLook.first + 1)
+				return true;
+		}
+
 	}else{
 	//playing from bottom
-
+		if(isLeft){
+			position pLook = initial;
+			pLook.first -= 1;
+			pLook.second -= 1;
+			Piece *enemy = table->getPiece(pLook, otherColor);
+			if(enemy == NULL &&
+			   final.second == pLook.second &&
+			   final.first == pLook.first)
+				return true;
+			else if(enemy != NULL &&
+					final.second == pLook.second - 1 &&
+					final.first == pLook.first - 1)
+				return true;
+		}else{
+			position pLook = initial;
+			pLook.first += 1;
+			pLook.second -= 1;
+			Piece *enemy = table->getPiece(pLook, otherColor);
+			if(enemy == NULL &&
+			   final.second == pLook.second &&
+			   final.first == pLook.first)
+				return true;
+			else if(enemy != NULL &&
+					final.second == pLook.second - 1 &&
+					final.first == pLook.first + 1)
+				return true;
+		}
 	}
 	//TODO: implement
 	return false;
