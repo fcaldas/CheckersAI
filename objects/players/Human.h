@@ -8,9 +8,20 @@
 #ifndef HUMAN_H_
 #define HUMAN_H_
 
-class Human {
+#include "../Player.h"
+
+class Human : public Player {
+	position selected_case;
+	bool selected;
 public:
-	Human();
+	Human(pc_color color, Table *table);
+
+	void play();
+
+	void draw(SDL_Surface* screen);
+
+	void click(int x, int y);
+
 	virtual ~Human();
 };
 

@@ -7,8 +7,21 @@
 
 #include "Human.h"
 
-Human::Human() {
-	// TODO Auto-generated constructor stub
+Human::Human(pc_color color, Table *table) : Player(color, table){
+	this->loadIMG("./img/selection.png","selection");
+	this->loadIMG("./img/moveto.png","moveto");
+
+}
+
+void Human::play(){
+
+}
+
+void Human::draw(SDL_Surface* screen){
+
+}
+
+void Human::click(int x, int y){
 
 }
 

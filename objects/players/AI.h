@@ -8,9 +8,17 @@
 #ifndef AI_H_
 #define AI_H_
 
-class AI {
+#include "../Player.h"
+
+class AI : public Player {
 public:
-	AI();
+	AI(pc_color color, Table *table);
+	void play();
+
+	void draw(SDL_Surface* screen);
+
+	void click(int x, int y);
+
 	virtual ~AI();
 };
 

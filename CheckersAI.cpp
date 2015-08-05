@@ -10,6 +10,7 @@
 #include "objects/Drawable.h"
 #include "utils/sdlfunctions.h"
 #include "objects/Game.h"
+
 #include <iostream>
 
 using namespace std;
@@ -57,7 +58,6 @@ int main(int argc, char* argv[]) {
     }
 
     Game game;
-
     bool running = true;
     SDL_Event event;
     Uint32 frametime;

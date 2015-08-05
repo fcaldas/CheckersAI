@@ -9,17 +9,24 @@
 #define PLAYER_H_
 
 #include "Table.h"
+#include "Drawable.h"
 
-class Player {
-private:
+class Player : public Drawable{
+
+protected:
 	pc_color color;
 	Table *table;
+
 public:
 	Player(pc_color color, Table *table);
 
-	~Player();
+	virtual ~Player();
 
 	virtual void play() = 0;
+
+	virtual void click(int x, int y) = 0;
+
+	virtual void draw(SDL_Surface* screen) = 0;
 
 	bool isMoveValid(position initial, position final);
 };

@@ -12,13 +12,16 @@
 #include "Table.h"
 #include "Piece.h"
 #include "Player.h"
+#include "players/AI.h"
+#include "players/Human.h"
 
 class Game : Drawable{
 private:
 	Table table;
 	int clickX, clickY;
-	Player *player1;
-	Player *player2;
+	Player *player_white;
+	Player *player_black;
+	pc_color active_player;
 public:
 
 	Game();
@@ -27,6 +30,7 @@ public:
 	void draw(SDL_Surface *screen);
 
 	void click(int x, int y);
+
 };
 
 #endif /* GAME_H_ */
