@@ -25,12 +25,16 @@ private:
 public:
 
 	Game();
+
 	virtual ~Game();
 
 	void draw(SDL_Surface *screen);
 
 	void click(int x, int y);
 
+	void play();
+
+	void mouseMove(int x, int y);
 };
 
 #endif /* GAME_H_ */

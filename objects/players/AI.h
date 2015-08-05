@@ -17,6 +17,8 @@ public:
 
 	void draw(SDL_Surface* screen);
 
+	void mouseMove(int x, int y);
+
 	void click(int x, int y);
 
 	virtual ~AI();

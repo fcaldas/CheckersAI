@@ -25,6 +25,10 @@ void AI::draw(SDL_Surface* screen){
 
 }
 
+void AI::mouseMove(int x, int y){
+
+}
+
 AI::~AI() {
 	// TODO Auto-generated destructor stub
 }

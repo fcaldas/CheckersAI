@@ -26,6 +26,8 @@ public:
 
 	virtual void click(int x, int y) = 0;
 
+	virtual void mouseMove(int x, int y) = 0;
+
 	virtual void draw(SDL_Surface* screen) = 0;
 
 	bool isMoveValid(position initial, position final);

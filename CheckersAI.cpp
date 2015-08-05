@@ -76,6 +76,9 @@ int main(int argc, char* argv[]) {
 			  case SDL_MOUSEBUTTONDOWN:
 								game.click(event.button.x, event.button.y);
 								break;
+			  case SDL_MOUSEMOTION:
+				  	  	  	  	game.mouseMove(event.motion.x, event.motion.y);
+				  	  	  	  	break;
 			}
       }
 

@@ -36,6 +36,21 @@ void Game::click(int x, int y){
 
 }
 
+void Game::play(){
+
+}
+
+void Game::mouseMove(int x, int y){
+	int i = x / 60;
+	int j = y / 60;
+	if( i >= 0 && i <= 7 && j >= 0 && j <= 7){
+		if(active_player == WHITE)
+			this->player_white->mouseMove(i,j);
+		else
+			this->player_black->mouseMove(i,j);
+	}
+}
+
 void Game::draw(SDL_Surface *screen){
 	table.draw(screen);
 	player_black->draw(screen);
