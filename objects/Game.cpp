@@ -36,8 +36,27 @@ void Game::click(int x, int y){
 
 }
 
-void Game::play(){
 
+void Game::play(){
+	Player *aPlayer = (this->active_player == BLACK)? player_black: player_white;
+
+	move * pMove = aPlayer->play();
+
+	//check if player returned a movement
+	if(pMove != NULL){
+		//if it is valid then we execute it
+		if(this->table.isMoveValid(pMove->start,
+								   pMove->end,
+								   aPlayer->getColor()))
+		{
+			table.executeMove(pMove->start,
+					   	   	  pMove->end,
+					   	   	  aPlayer->getColor());
+			//change turn
+			this->active_player =  (this->active_player == BLACK) ? WHITE : BLACK;
+		}
+		delete pMove;
+	}
 }
 
 void Game::mouseMove(int x, int y){

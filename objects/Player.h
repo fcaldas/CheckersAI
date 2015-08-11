@@ -22,13 +22,15 @@ public:
 
 	virtual ~Player();
 
-	virtual void play() = 0;
+	virtual move *play() = 0;
 
 	virtual void click(int x, int y) = 0;
 
 	virtual void mouseMove(int x, int y) = 0;
 
 	virtual void draw(SDL_Surface* screen) = 0;
+
+	pc_color getColor();
 
 };
 

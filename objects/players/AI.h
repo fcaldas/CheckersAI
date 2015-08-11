@@ -13,7 +13,8 @@
 class AI : public Player {
 public:
 	AI(pc_color color, Table *table);
-	void play();
+
+	move * play();
 
 	void draw(SDL_Surface* screen);
 

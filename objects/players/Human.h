@@ -16,7 +16,7 @@ class Human : public Player {
 public:
 	Human(pc_color color, Table *table);
 
-	void play();
+	move *play();
 
 	void draw(SDL_Surface* screen);
 

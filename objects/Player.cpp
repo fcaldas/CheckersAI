@@ -17,6 +17,10 @@ Player::Player(pc_color color, Table *table) {
 	this->color = color;
 }
 
+pc_color Player::getColor(){
+	return this->color;
+}
+
 Player::~Player() {
 	// TODO Auto-generated destructor stub
 }

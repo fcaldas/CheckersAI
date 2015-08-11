@@ -14,8 +14,8 @@ Human::Human(pc_color color, Table *table) : Player(color, table){
 
 }
 
-void Human::play(){
-
+move *Human::play(){
+	return NULL;
 }
 
 void Human::draw(SDL_Surface* screen){

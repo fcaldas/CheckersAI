@@ -17,8 +17,8 @@ void AI::click(int x, int y){
 
 }
 
-void AI::play(){
-
+move * AI::play(){
+	return NULL;
 }
 
 void AI::draw(SDL_Surface* screen){

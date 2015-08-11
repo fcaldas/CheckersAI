@@ -15,12 +15,6 @@
 #include "players/AI.h"
 #include "players/Human.h"
 
-typedef struct move{
-	position start;
-	position end;
-} move;
-
-
 class Game : Drawable{
 private:
 	Table table;

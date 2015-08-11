@@ -11,6 +11,7 @@
 using namespace std;
 
 Table::Table():Table(WHITE){
+
 }
 
 
@@ -86,6 +87,11 @@ void Table::draw(SDL_Surface * screen){
 		this->applySurface(pcWhite[i].getX() * 60, pcWhite[i].getY() * 60,"wpiece",screen);
 	}
 
+}
+
+gameState Table::executeMove(position &from, position &to, pc_color pcolor){
+	//TODO: implement
+	return GAME_OK;
 }
 
 /* Check if a movement is valid, sends two positions
