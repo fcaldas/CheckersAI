@@ -31,6 +31,8 @@ public:
 	void draw(SDL_Surface* screen);
 	pc_color getPlayerUp();
 	Piece* getPiece(position p, pc_color color);
+
+	bool isMoveValid(position &initial, position &final, pc_color pcolor);
 };
 
 #endif /* TABLE_H_ */

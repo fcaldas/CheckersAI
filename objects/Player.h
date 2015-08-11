@@ -30,7 +30,6 @@ public:
 
 	virtual void draw(SDL_Surface* screen) = 0;
 
-	bool isMoveValid(position initial, position final);
 };
 
 #endif /* PLAYER_H_ */
