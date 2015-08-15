@@ -13,6 +13,7 @@
 #include <vector>
 #include "Piece.h"
 #include <utility>
+#include "Utils.h"
 
 typedef struct move{
 	position start;
@@ -20,10 +21,6 @@ typedef struct move{
 } move;
 
 enum gameState{GAME_END, GAME_OK, GAME_POINT, GAME_INVALIDMOVE};
-
-enum pc_color { WHITE, BLACK };
-
-typedef pair<int,int> position;
 
 using namespace std;
 
@@ -40,6 +37,7 @@ public:
 	Piece* getPiece(position p, pc_color color);
 	gameState executeMove(position &from, position &to, pc_color pcolor);
 	bool isMoveValid(position &initial, position &final, pc_color pcolor);
+	Piece* getPieceAt(position p);
 };
 
 #endif /* TABLE_H_ */

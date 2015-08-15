@@ -19,10 +19,10 @@ Human::Human(pc_color color, Table *table) : Player(color, table){
 }
 
 move *Human::play(){
-	cout << "human play"<<flush;
 	if(this->moveSelected == true){
 		cout<<"move consumed!"<<flush;
 		this->moveSelected = false;
+		this->selected = false;
 		return this->moveToExecute;
 	}else
 		return NULL;

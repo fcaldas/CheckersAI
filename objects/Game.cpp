@@ -39,7 +39,6 @@ void Game::click(int x, int y){
 
 void Game::play(){
 	Player *aPlayer = (this->active_player == BLACK)? player_black: player_white;
-	cout<<"On player.play!!"<<flush;
 	move * pMove = aPlayer->play();
 
 	//check if player returned a movement

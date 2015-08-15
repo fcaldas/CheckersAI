@@ -9,20 +9,21 @@
 #define PIECE_H_
 #include <utility>
 #include "Drawable.h"
+#include "Utils.h"
 
 typedef pair<int,int> position;
 
 class Piece{
 private:
 	int x, y;
-	bool isblack;
+	pc_color color;
 	bool king;
 public:
-	Piece(int x, int y, bool isBlack);
+	Piece(int x, int y, pc_color color);
 
 	virtual ~Piece();
 
-	bool isBlack();
+	pc_color getColor();
 
 	int getX();
 

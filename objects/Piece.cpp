@@ -7,10 +7,10 @@
 
 #include "Piece.h"
 
-Piece::Piece(int x, int y, bool isBlack) {
+Piece::Piece(int x, int y, pc_color color) {
 	this->x = x;
 	this->y = y;
-	this->isblack = isBlack;
+	this->color = color;
 	this->king = false;
 }
 
@@ -18,8 +18,8 @@ Piece::~Piece() {
 
 }
 
-bool Piece::isBlack(){
-	return this->isblack;
+pc_color Piece::getColor(){
+	return this->color;
 }
 
 bool Piece::isKing(){

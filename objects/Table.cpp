@@ -23,18 +23,18 @@ Table::Table(pc_color colorup) {
 		row = i/4;
 		int offset = ( row%2 == 1)?0:1;
 		if(colorup == WHITE)
-			pcWhite.push_back(Piece(offset+(i-row*4)*2, row, true));
+			pcWhite.push_back(Piece(offset+(i-row*4)*2, row, WHITE));
 		else
-			pcBlack.push_back(Piece(offset+(i-row*4)*2, row, true));
+			pcBlack.push_back(Piece(offset+(i-row*4)*2, row, BLACK));
 	}
 
 	for(int i = 0; i < 12; i++){
 		row = i/4;
 		int offset = ( row%2 == 1)?1:0;
 		if(colorup == WHITE)
-			pcBlack.push_back(Piece((i - row * 4)*2 + offset, 5 + row, false));
+			pcBlack.push_back(Piece((i - row * 4)*2 + offset, 5 + row, WHITE));
 		else
-			pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, false));
+			pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, BLACK));
 	}
 
 	this->loadIMG("./img/brownblock.bmp", "bblock");
@@ -49,6 +49,18 @@ Table::~Table() {
 
 pc_color Table::getPlayerUp(){
 	return this->color_up;
+}
+
+Piece* Table::getPieceAt(position p){
+	for(int i = 0; i < this->pcWhite.size(); i++){
+		if(pcWhite[i].isAtPosition(p))
+			return &(pcWhite[i]);
+	}
+	for(int i = 0; i < this->pcBlack.size(); i++){
+		if(pcBlack[i].isAtPosition(p))
+			return &(pcBlack[i]);
+	}
+	return NULL;
 }
 
 Piece* Table::getPiece(position p, pc_color color){

@@ -9,8 +9,28 @@
 #define AI_H_
 
 #include "../Player.h"
+#include "../Piece.h"
+
+#include <vector>
+
+class AImove{
+public:
+	AImove(position from, position to, int score){
+		this->score = score;
+		m.start = from;
+		m.end = to;
+	}
+	move m;
+	int score;
+};
 
 class AI : public Player {
+private:
+	Table *table;
+	pc_color pcolor;
+
+	bool checkPositionValid(position &p);
+
 public:
 	AI(pc_color color, Table *table);
 
@@ -23,6 +43,8 @@ public:
 	void click(int x, int y);
 
 	virtual ~AI();
+
+	std::vector<AImove> possibleMovesForPiece(Piece *p);
 };
 
 #endif /* AI_H_ */

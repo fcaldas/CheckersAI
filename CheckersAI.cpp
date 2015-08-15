@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     } // Or someone changed the image format from 24-bit.. cough.
 
     // Set the caption on the screen like a pro:
-    SDL_WM_SetCaption("AICheckers", NULL);
+    SDL_WM_SetCaption("CheckersAI", NULL);
 
 
     // As the images are not 32-bit like the screen, we have to change them to 32-bit
