@@ -30,6 +30,8 @@ public:
 
 	bool isAtPosition(position p);
 
+	void setPosition(position p);
+
 	bool isKing();
 };
 

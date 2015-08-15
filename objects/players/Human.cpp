@@ -7,15 +7,25 @@
 
 #include "Human.h"
 #include "../Piece.h"
+#include <iostream>
+using namespace std;
 
 Human::Human(pc_color color, Table *table) : Player(color, table){
 	this->loadIMG("./img/selection.png","selection");
 	this->loadIMG("./img/moveto.png","moveto");
+	selected = false;
+	moveSelected = false;
 
 }
 
 move *Human::play(){
-	return NULL;
+	cout << "human play"<<flush;
+	if(this->moveSelected == true){
+		cout<<"move consumed!"<<flush;
+		this->moveSelected = false;
+		return this->moveToExecute;
+	}else
+		return NULL;
 }
 
 void Human::draw(SDL_Surface* screen){
@@ -33,6 +43,15 @@ void Human::click(int x, int y){
 	if(p != NULL){
 		this->selected = true;
 		selected_case = pos;
+	}else if(p == NULL){
+		if(this->table->isMoveValid(selected_case, pos, this->color) &&
+		   this->moveSelected == false){
+			this->moveSelected = true;
+			moveToExecute = new move;
+			moveToExecute->start = selected_case;
+			moveToExecute->end = pos;
+			cout<<"Move set at player"<<endl;
+		}
 	}
 }
 

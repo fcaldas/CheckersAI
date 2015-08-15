@@ -19,7 +19,7 @@ typedef struct move{
 	position end;
 } move;
 
-enum gameState{GAME_END, GAME_OK, GAME_POINT};
+enum gameState{GAME_END, GAME_OK, GAME_POINT, GAME_INVALIDMOVE};
 
 enum pc_color { WHITE, BLACK };
 

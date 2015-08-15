@@ -90,8 +90,18 @@ void Table::draw(SDL_Surface * screen){
 }
 
 gameState Table::executeMove(position &from, position &to, pc_color pcolor){
-	//TODO: implement
-	return GAME_OK;
+	int points = this->isMoveValid(from, to, pcolor);
+	if(points >= 0){
+		Piece * p = this->getPiece(from,pcolor);
+		p->setPosition(to);
+		if(points > 0){
+			//TODO: remove pieces when they are consumed/killed
+			return GAME_POINT;
+		}else
+			return GAME_OK;
+	}else{
+		return GAME_INVALIDMOVE;
+	}
 }
 
 /* Check if a movement is valid, sends two positions

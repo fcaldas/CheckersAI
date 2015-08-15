@@ -84,6 +84,7 @@ int main(int argc, char* argv[]) {
 
       if (SDL_GetTicks () - frametime < minframetime)
         SDL_Delay (minframetime - (SDL_GetTicks () - frametime));
+      game.play();
       game.draw(screen);
       SDL_Flip( screen );
 

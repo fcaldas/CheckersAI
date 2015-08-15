@@ -39,3 +39,8 @@ bool Piece::isAtPosition(position p){
 		return true;
 	return false;
 }
+
+void Piece::setPosition(position p){
+	this->x = p.first;
+	this->y = p.second;
+}

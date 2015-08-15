@@ -13,6 +13,8 @@
 class Human : public Player {
 	position selected_case;
 	bool selected;
+	bool moveSelected;
+	move *moveToExecute;
 public:
 	Human(pc_color color, Table *table);
 
