@@ -13,18 +13,21 @@
 
 #include <vector>
 
+using namespace std;
+
 class AImove{
 public:
-	AImove(position from, position to, int score){
+	AImove(position from, position to, int score, AImove * parent){
 		this->score = score;
 		m.start = from;
 		m.end = to;
+		this->previous = parent;
 	}
 	move m;
 	int score;
 
 	AImove * previous;
-	AImove * next;
+	vector<AImove *> next;
 };
 
 class AI : public Player {

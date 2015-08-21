@@ -12,38 +12,62 @@ AI::AI(pc_color color, Table *table) : Player(color, table){
 	this->pcolor = color;
 }
 
+
 void AI::click(int x, int y){
 	//does nothing for AI
-	//but has to be declared anyway since its
+	//but has to be declared anyway since it's
 	//an virtual method of player
 }
 
 move * AI::play(){
-	return NULL;
+
+
+	move * decision = new move();
+	return move;
 }
 
 void AI::draw(SDL_Surface* screen){
-
+	
 }
 
 void AI::mouseMove(int x, int y){
 
+
+}
+
+
+vector<AImove*> AI::createTree(int treeDepth){
+	vector<AImove*> gameTree;
+	bool aiPlay = true;
+	for(int i = 0; i < treeDepth; i++){
+		vector<Piece> &pieces;
+		
+		
+		//flip player
+		aiPlay = !aiPlay;
+	}
+
+	return gameTree;
 }
 
 AI::~AI() {
 	// TODO Auto-generated destructor stub
+	
 }
 
+vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove &parent){
 
-std::vector<AImove> AI::possibleMovesForPiece(Piece *p){
-	std::vector<AImove> moveList;
-	position pNow(p->getX(),p->getY());
-	int dPos = (this->pcolor == table->getPlayerUp())? 1 : -1;
-
+	vector<AImove *> moveList;
+	pc_color pieceColor = p.getColor();
+	position pNow(p.getX(),p.getY());
+		
+	int dPos = (pieceColor == table->getPlayerUp())?1:-1;
+	int dScore = (this->pcolor == pieceColor)?1:-1;
+	
 	if(p->isKing()){
-		//TODO: logic for king piece
+		//TODO: logic for king
 	}else{
-		//a piece can only move down until it is a king
+		//TODO: a piece can only move down until it is a king
 		position possible1 = pNow;
 		position possible2 = pNow;
 		possible1.second += dPos;
@@ -52,7 +76,7 @@ std::vector<AImove> AI::possibleMovesForPiece(Piece *p){
 		possible2.first += 1;
 		if(table->getPieceAt(possible1) == NULL){
 			if(this->checkPositionValid(possible1)){
-				AImove pMove(pNow, possible1, 0);
+				AImove *  pMove = new AImove(pNow, possible1, 0, &parent);
 				moveList.push_back(pMove);
 			}
 		}else if(table->getPieceAt(possible1)->getColor() != this->pcolor ){
@@ -62,7 +86,7 @@ std::vector<AImove> AI::possibleMovesForPiece(Piece *p){
 			possible1C2.first -= 1;
 			if(table->getPieceAt(possible1C2) == NULL){
 				if(this->checkPositionValid(possible1C2)){
-					AImove pMove(pNow, possible1C2, 1);
+					AImove *pMove = new AImove(pNow, possible1C2, 1 * dScore, &parent);
 					moveList.push_back(pMove);
 				}
 			}
@@ -71,7 +95,7 @@ std::vector<AImove> AI::possibleMovesForPiece(Piece *p){
 
 		if(table->getPieceAt(possible2) == NULL){
 			if(this->checkPositionValid(possible2)){
-				AImove pMove(pNow, possible2, 0);
+				AImove * pMove = new AImove(pNow, possible2,0, parent);
 				moveList.push_back(pMove);
 			}
 		}else if(table->getPieceAt(possible2)->getColor() != this->pcolor ){
@@ -81,7 +105,7 @@ std::vector<AImove> AI::possibleMovesForPiece(Piece *p){
 			possible2C2.first += 1;
 			if(table->getPieceAt(possible2C2) == NULL){
 				if(this->checkPositionValid(possible2C2)){
-					AImove pMove(pNow, possible2C2, 1);
+					AImove * pMove = new AImove(pNow, possible2C2, 1 * dScore, parent);
 					moveList.push_back(pMove);
 				}
 			}
