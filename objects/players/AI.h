@@ -22,6 +22,9 @@ public:
 	}
 	move m;
 	int score;
+
+	AImove * previous;
+	AImove * next;
 };
 
 class AI : public Player {

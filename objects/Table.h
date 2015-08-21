@@ -15,10 +15,11 @@
 #include <utility>
 #include "Utils.h"
 
-typedef struct move{
+class move{
+public:
 	position start;
 	position end;
-} move;
+};
 
 enum gameState{GAME_END, GAME_OK, GAME_POINT, GAME_INVALIDMOVE};
 
