@@ -26,10 +26,9 @@ enum gameState{GAME_END, GAME_OK, GAME_POINT, GAME_INVALIDMOVE};
 using namespace std;
 
 class Table : public Drawable{
-private:
+public:
 	vector<Piece> pcWhite, pcBlack;
 	pc_color color_up; //check if white pieces are on the upper part
-public:
 	Table();
 	Table(pc_color color_up);
 	virtual ~Table();

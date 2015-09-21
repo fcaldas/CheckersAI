@@ -17,24 +17,25 @@ using namespace std;
 
 class AImove{
 public:
-	AImove(position from, position to, int score, AImove * parent){
-		this->score = score;
-		m.start = from;
-		m.end = to;
-		this->previous = parent;
-	}
 	move m;
+
 	int score;
 
 	AImove * previous;
+
 	vector<AImove *> next;
+
+	AImove(position from, position to, int score, AImove * parent);
+
+
+	
 };
 
 class AI : public Player {
 private:
 	Table *table;
 	pc_color pcolor;
-
+	int maxDepth;
 	bool checkPositionValid(position &p);
 
 public:
@@ -50,7 +51,9 @@ public:
 
 	virtual ~AI();
 
-	std::vector<AImove> possibleMovesForPiece(Piece *p);
+	std::vector<AImove*> possibleMovesForPiece(Piece &p, AImove &parent);
+
+	AImove* createTree(int treeDepth);
 };
 
 #endif /* AI_H_ */
