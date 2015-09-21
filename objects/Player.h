@@ -32,6 +32,8 @@ public:
 
 	pc_color getColor();
 
+	vector<Piece> * getPieces();
+
 };
 
 #endif /* PLAYER_H_ */

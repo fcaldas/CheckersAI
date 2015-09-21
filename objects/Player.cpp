@@ -24,3 +24,9 @@ pc_color Player::getColor(){
 Player::~Player() {
 	// TODO Auto-generated destructor stub
 }
+
+vector<Piece> * Player::getPieces(){
+	if(this->color == WHITE)
+		return &(table->pcWhite);
+	return &(table->pcBlack);
+}

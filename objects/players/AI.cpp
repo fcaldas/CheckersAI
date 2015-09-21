@@ -21,8 +21,33 @@ void AI::click(int x, int y){
 }
 
 move * AI::play(){
+	vector<AImove *> moveList;
+	vector<Piece> *myPieces = getPieces();
 
-	return NULL;
+	for(int i = 0; i < myPieces->size(); i++){
+		vector<AImove *> moves = possibleMovesForPiece(myPieces->at(i), NULL);
+		moveList.insert( moveList.end(), moves.begin(), moves.end() );
+	}
+	//TODO:
+
+	//generate tree
+
+	//apply minimax
+
+	//return movement from minimax
+	
+	move *retMove = new move();
+	int max = INT32_MIN;
+	for(int i = 0; i < moveList.size(); i++){
+		if(moveList[i]->score > max){
+			retMove->start = moveList[i]->m.start;
+			retMove->end = moveList[i]->m.end;
+			max = moveList[i]->score;
+		}
+		delete moveList[i];
+	}
+
+	return retMove;
 }
 
 void AI::draw(SDL_Surface* screen){

@@ -51,7 +51,7 @@ public:
 
 	virtual ~AI();
 
-	std::vector<AImove*> possibleMovesForPiece(Piece &p, AImove &parent);
+	std::vector<AImove*> possibleMovesForPiece(Piece &p, AImove *parent);
 
 	AImove* createTree(int treeDepth);
 };
