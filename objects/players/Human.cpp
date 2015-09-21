@@ -43,8 +43,8 @@ void Human::click(int x, int y){
 	if(p != NULL){
 		this->selected = true;
 		selected_case = pos;
-	}else if(p == NULL){
-		if(this->table->isMoveValid(selected_case, pos, this->color) &&
+	}else if(p == NULL && selected == true){
+		if(this->table->isMoveValid(selected_case, pos, this->color) >= 0 &&
 		   this->moveSelected == false){
 			this->moveSelected = true;
 			moveToExecute = new move;

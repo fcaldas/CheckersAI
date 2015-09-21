@@ -26,6 +26,9 @@ enum gameState{GAME_END, GAME_OK, GAME_POINT, GAME_INVALIDMOVE};
 using namespace std;
 
 class Table : public Drawable{
+private:
+	bool removePiece(Piece *toRemove);
+	void removeKilled(position &initial, position &final, pc_color pcolor);
 public:
 	vector<Piece> pcWhite, pcBlack;
 	pc_color color_up; //check if white pieces are on the upper part
@@ -36,7 +39,7 @@ public:
 	pc_color getPlayerUp();
 	Piece* getPiece(position p, pc_color color);
 	gameState executeMove(position &from, position &to, pc_color pcolor);
-	bool isMoveValid(position &initial, position &final, pc_color pcolor);
+	int isMoveValid(position &initial, position &final, pc_color pcolor);
 	Piece* getPieceAt(position p);
 };
 

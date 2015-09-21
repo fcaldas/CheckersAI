@@ -103,11 +103,13 @@ void Table::draw(SDL_Surface * screen){
 
 gameState Table::executeMove(position &from, position &to, pc_color pcolor){
 	int points = this->isMoveValid(from, to, pcolor);
+	cout<<"Points for move = "<<points<<endl;
 	if(points >= 0){
 		Piece * p = this->getPiece(from,pcolor);
 		p->setPosition(to);
 		if(points > 0){
 			//TODO: remove pieces when they are consumed/killed
+			removeKilled(from,to,pcolor);
 			return GAME_POINT;
 		}else
 			return GAME_OK;
@@ -117,23 +119,25 @@ gameState Table::executeMove(position &from, position &to, pc_color pcolor){
 }
 
 /* Check if a movement is valid, sends two positions
- * returns bool.
+ * returns int.
  * assumes white pieces are always at the bottom
- *
+ * ret:
+ * 			0: ok
+ * 		   -1: invalid
+ *		   >0: there are pieces to be removed
  */
-bool Table::isMoveValid(position &initial, position &final, pc_color pcolor){
+int Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 	Piece *toMove = this->getPiece(initial,pcolor);
 	bool isKing = toMove->isKing();
 	pc_color otherColor = (pcolor == WHITE)?BLACK:WHITE;
 	if(toMove == NULL)
-		return false;
-	bool isLeft = (initial.first > final.first)?true:false;
+		return -1;
+	bool isLeftMove = (initial.first > final.first)?true:false;
   	bool hasPieceBetween = false;
-
 
 	//playing from top
 	if(this->getPlayerUp() == pcolor){
-		if(isLeft){
+		if(isLeftMove){
 			position pLook = initial;
 			pLook.first -= 1;
 			pLook.second += 1;
@@ -141,11 +145,11 @@ bool Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 			if(enemy == NULL &&
 			   final.second == pLook.second &&
 			   final.first == pLook.first)
-				return true;
+				return 0;
 			else if(enemy != NULL &&
 					final.second == pLook.second + 1 &&
 					final.first == pLook.first - 1)
-				return true;
+				return 1;
 		}else{
 			position pLook = initial;
 			pLook.first += 1;
@@ -154,16 +158,16 @@ bool Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 			if(enemy == NULL &&
 			   final.second == pLook.second &&
 			   final.first == pLook.first)
-				return true;
+				return 0;
 			else if(enemy != NULL &&
 					final.second == pLook.second + 1 &&
 					final.first == pLook.first + 1)
-				return true;
+				return 1;
 		}
 
 	}else{
 	//playing from bottom
-		if(isLeft){
+		if(isLeftMove){
 			position pLook = initial;
 			pLook.first -= 1;
 			pLook.second -= 1;
@@ -171,11 +175,11 @@ bool Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 			if(enemy == NULL &&
 			   final.second == pLook.second &&
 			   final.first == pLook.first)
-				return true;
+				return 0;
 			else if(enemy != NULL &&
 					final.second == pLook.second - 1 &&
 					final.first == pLook.first - 1)
-				return true;
+				return 1;
 		}else{
 			position pLook = initial;
 			pLook.first += 1;
@@ -184,14 +188,92 @@ bool Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 			if(enemy == NULL &&
 			   final.second == pLook.second &&
 			   final.first == pLook.first)
-				return true;
+				return 0;
 			else if(enemy != NULL &&
 					final.second == pLook.second - 1 &&
 					final.first == pLook.first + 1)
-				return true;
+				return 1;
 		}
 	}
-	//TODO: implement
-	return false;
+	//TODO: implement king movement
+	return -1;
 }
 
+/* Execute a valid move, sends two positions
+ * returns bool.
+ * assumes white pieces are always at the bottom
+ *
+ */
+void Table::removeKilled(position &initial, position &final, pc_color pcolor){
+	Piece *toMove = this->getPiece(initial,pcolor);
+	bool isKing = toMove->isKing();
+	pc_color otherColor = (pcolor == WHITE)?BLACK:WHITE;
+	bool isLeftMove = (initial.first > final.first)?true:false;
+  	bool hasPieceBetween = false;
+
+	//playing from top
+	if(this->getPlayerUp() == pcolor){
+		if(isLeftMove){
+			position pLook = initial;
+			pLook.first -= 1;
+			pLook.second += 1;
+			Piece *enemy = this->getPiece(pLook, otherColor);
+			if(enemy != NULL &&
+					final.second == pLook.second + 1 &&
+					final.first == pLook.first - 1){
+				//remove enemy
+				removePiece(enemy);
+			}
+		}else{
+			position pLook = initial;
+			pLook.first += 1;
+			pLook.second += 1;
+			Piece *enemy = this->getPiece(pLook, otherColor);
+			if(enemy != NULL &&
+					final.second == pLook.second + 1 &&
+					final.first == pLook.first + 1){
+				removePiece(enemy);
+			}
+		}
+
+	}else{
+	//playing from bottom
+		if(isLeftMove){
+			position pLook = initial;
+			pLook.first -= 1;
+			pLook.second -= 1;
+			Piece *enemy = this->getPiece(pLook, otherColor);
+			if(enemy != NULL &&
+			   final.second == pLook.second - 1 &&
+			   final.first == pLook.first - 1){
+				removePiece(enemy);
+			}
+		}else{
+			position pLook = initial;
+			pLook.first += 1;
+			pLook.second -= 1;
+			Piece *enemy = this->getPiece(pLook, otherColor);
+			if(enemy != NULL &&
+			   final.second == pLook.second - 1 &&
+			   final.first == pLook.first + 1){
+				removePiece(enemy);
+			}
+		}
+	}
+}
+
+bool Table::removePiece(Piece *toRemove){
+	for(int i = 0; i < pcBlack.size(); i++){
+		if(&(pcBlack[i]) == toRemove){
+			pcBlack.erase(pcBlack.begin() + i);
+			return true;
+		}
+	}
+	for(int i = 0; i < pcWhite.size(); i++){
+		if(&(pcWhite[i]) == toRemove){
+			pcWhite.erase(pcWhite.begin() + i);
+			return true;
+		}
+	}
+	return false;
+}

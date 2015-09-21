@@ -46,8 +46,9 @@ void Game::play(){
 		//if it is valid then we execute it
 		if(this->table.isMoveValid(pMove->start,
 								   pMove->end,
-								   aPlayer->getColor()))
+								   aPlayer->getColor()) >= 0)
 		{
+			cout<<"Executing move!"<<endl;
 			table.executeMove(pMove->start,
 					   	   	  pMove->end,
 					   	   	  aPlayer->getColor());
