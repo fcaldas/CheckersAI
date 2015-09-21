@@ -106,13 +106,15 @@ gameState Table::executeMove(position &from, position &to, pc_color pcolor){
 	cout<<"Points for move = "<<points<<endl;
 	if(points >= 0){
 		Piece * p = this->getPiece(from,pcolor);
-		p->setPosition(to);
 		if(points > 0){
 			//TODO: remove pieces when they are consumed/killed
 			removeKilled(from,to,pcolor);
+			p->setPosition(to);
 			return GAME_POINT;
-		}else
+		}else{
+			p->setPosition(to);
 			return GAME_OK;
+		}
 	}else{
 		return GAME_INVALIDMOVE;
 	}
