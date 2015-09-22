@@ -14,7 +14,7 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 	position pNow(p.getX(),p.getY());
 		
 	int dPos = (pieceColor == table->getPlayerUp())?1:-1;
-	int dScore = (this->pcolor == pieceColor)?1:-1;
+	int dScore = (this->color == pieceColor)?1:-1;
 	
 	if(p.isKing()){
 		//TODO: logic for king
@@ -31,8 +31,9 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 				AImove *  pMove = new AImove(pNow, possible1, 0, parent);
 				moveList.push_back(pMove);
 			}
-		}else if(table->getPieceAt(possible1)->getColor() != this->pcolor ){
+		}else if(table->getPieceAt(possible1)->getColor() != this->color ){
 			//check next case!
+			cout<<"On P1C2"<<endl;
 			position possible1C2 = possible1;
 			possible1C2.second += dPos;
 			possible1C2.first -= 1;
@@ -44,14 +45,14 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 			}
 		}
 
-
 		if(table->getPieceAt(possible2) == NULL){
 			if(this->checkPositionValid(possible2)){
 				AImove * pMove = new AImove(pNow, possible2,0, parent);
 				moveList.push_back(pMove);
 			}
-		}else if(table->getPieceAt(possible2)->getColor() != this->pcolor ){
+		}else if(table->getPieceAt(possible2)->getColor() != this->color ){
 			//check next case!
+			cout<<"On P2C2"<<endl;
 			position possible2C2 = possible2;
 			possible2C2.second += dPos;
 			possible2C2.first += 1;

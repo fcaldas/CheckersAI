@@ -10,7 +10,7 @@
 
 #include "../Player.h"
 #include "../Piece.h"
-
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -34,7 +34,6 @@ public:
 class AI : public Player {
 private:
 	Table *table;
-	pc_color pcolor;
 	int maxDepth;
 	bool checkPositionValid(position &p);
 

@@ -6,10 +6,12 @@
  */
 
 #include "AI.h"
+#include <iostream>
+using namespace std;
 
 AI::AI(pc_color color, Table *table) : Player(color, table){
 	this->table = table;
-	this->pcolor = color;
+	this->color = color;
 	this->maxDepth = 3;
 }
 
@@ -35,7 +37,7 @@ move * AI::play(){
 	//apply minimax
 
 	//return movement from minimax
-	
+	cout<<"Size of list = "<<moveList.size()<<endl;
 	move *retMove = new move();
 	int max = INT32_MIN;
 	for(int i = 0; i < moveList.size(); i++){

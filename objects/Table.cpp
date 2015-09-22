@@ -32,9 +32,9 @@ Table::Table(pc_color colorup) {
 		row = i/4;
 		int offset = ( row%2 == 1)?1:0;
 		if(colorup == WHITE)
-			pcBlack.push_back(Piece((i - row * 4)*2 + offset, 5 + row, WHITE));
+			pcBlack.push_back(Piece((i - row * 4)*2 + offset, 5 + row, BLACK));
 		else
-			pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, BLACK));
+			pcWhite.push_back(Piece((i - row * 4)*2 + offset, 5 + row, WHITE));
 	}
 
 	this->loadIMG("./img/brownblock.bmp", "bblock");
@@ -103,7 +103,6 @@ void Table::draw(SDL_Surface * screen){
 
 gameState Table::executeMove(position &from, position &to, pc_color pcolor){
 	int points = this->isMoveValid(from, to, pcolor);
-	cout<<"Points for move = "<<points<<endl;
 	if(points >= 0){
 		Piece * p = this->getPiece(from,pcolor);
 		if(points > 0){
