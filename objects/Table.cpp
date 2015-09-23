@@ -114,7 +114,6 @@ void Table::checkPiecePromotion(Piece *p, position &to, pc_color pcolor){
 	}else if(this->color_up != pcolor && to.second == 0){
 		p->king = true;
 	}
-
 }
 
 

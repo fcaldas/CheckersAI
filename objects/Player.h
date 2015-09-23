@@ -15,8 +15,8 @@ class Player : public Drawable{
 
 protected:
 	pc_color color;
-	Table *table;
 	bool isPlayerHuman;
+	Table *table;
 public:
 	Player(pc_color color, Table *table);
 

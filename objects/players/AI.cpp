@@ -11,7 +11,7 @@ using namespace std;
 
 AI::AI(pc_color color, Table *table) : Player(color, table){
 	this->maxDepth = 3;
-	//isPlayerHuman = false;
+	isPlayerHuman = false;
 }
 
 

@@ -15,7 +15,6 @@ using namespace std;
 Player::Player(pc_color color, Table *table) {
 	this->table = table;
 	this->color = color;
-	cout << table << " for player "<<color<<endl;
 }
 
 pc_color Player::getColor(){

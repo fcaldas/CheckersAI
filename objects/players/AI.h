@@ -33,7 +33,6 @@ public:
 
 class AI : public Player {
 private:
-	Table *table;
 	int maxDepth;
 	bool checkPositionValid(position &p);
 

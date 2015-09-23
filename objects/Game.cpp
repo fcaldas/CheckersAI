@@ -14,8 +14,8 @@ Game::Game() {
 
 	clickX = -1;
 	clickY = -1;
-	this->player_black = new Human(BLACK, &(this->table));
-	this->player_white = new AI(WHITE, &(this->table));
+	this->player_black = new Human(BLACK, &(table));
+	this->player_white = new AI(WHITE, &(table));
 
 	this->active_player = BLACK;
 }
@@ -39,6 +39,7 @@ void Game::click(int x, int y){
 
 void Game::play(){
 	Player *aPlayer = (this->active_player == BLACK)? player_black: player_white;
+
 	move * pMove = aPlayer->play();
 
 	//check if player returned a movement
@@ -55,10 +56,9 @@ void Game::play(){
 			if(gs == GAME_OK){
 				//change turn
 				this->active_player =  (this->active_player == BLACK) ? WHITE : BLACK;
+			}else if(gs == GAME_POINT && aPlayer->isHuman() == false){
+				SDL_Delay(500);
 			}
-//			}else if(gs == GAME_POINT && aPlayer->isHuman() == false){
-//				SDL_Delay(500);
-//			}
 		}
 		delete pMove;
 	}
