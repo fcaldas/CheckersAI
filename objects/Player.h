@@ -16,7 +16,7 @@ class Player : public Drawable{
 protected:
 	pc_color color;
 	Table *table;
-
+	bool isPlayerHuman;
 public:
 	Player(pc_color color, Table *table);
 
@@ -34,6 +34,7 @@ public:
 
 	vector<Piece> * getPieces();
 
+	bool isHuman();
 };
 
 #endif /* PLAYER_H_ */

@@ -10,9 +10,8 @@
 using namespace std;
 
 AI::AI(pc_color color, Table *table) : Player(color, table){
-	this->table = table;
-	this->color = color;
 	this->maxDepth = 3;
+	//isPlayerHuman = false;
 }
 
 

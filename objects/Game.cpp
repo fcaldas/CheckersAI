@@ -49,11 +49,16 @@ void Game::play(){
 								   aPlayer->getColor()) >= 0)
 		{
 			cout<<"Executing move!"<<endl;
-			table.executeMove(pMove->start,
-					   	   	  pMove->end,
-					   	   	  aPlayer->getColor());
-			//change turn
-			this->active_player =  (this->active_player == BLACK) ? WHITE : BLACK;
+			gameState gs = table.executeMove(pMove->start,
+											 pMove->end,
+											 aPlayer->getColor());
+			if(gs == GAME_OK){
+				//change turn
+				this->active_player =  (this->active_player == BLACK) ? WHITE : BLACK;
+			}
+//			}else if(gs == GAME_POINT && aPlayer->isHuman() == false){
+//				SDL_Delay(500);
+//			}
 		}
 		delete pMove;
 	}

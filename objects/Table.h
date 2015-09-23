@@ -29,6 +29,7 @@ class Table : public Drawable{
 private:
 	bool removePiece(Piece *toRemove);
 	void removeKilled(position &initial, position &final, pc_color pcolor);
+	void checkPiecePromotion(Piece *p, position &to, pc_color pcolor);
 public:
 	vector<Piece> pcWhite, pcBlack;
 	pc_color color_up; //check if white pieces are on the upper part

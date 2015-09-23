@@ -14,7 +14,9 @@
 typedef pair<int,int> position;
 
 class Piece{
+	friend class Table;
 private:
+
 	int x, y;
 	pc_color color;
 	bool king;

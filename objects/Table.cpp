@@ -108,12 +108,22 @@ void Table::draw(SDL_Surface * screen){
 
 }
 
+void Table::checkPiecePromotion(Piece *p, position &to, pc_color pcolor){
+	if(this->color_up == pcolor && to.second == 7){
+		p->king = true;
+	}else if(this->color_up != pcolor && to.second == 0){
+		p->king = true;
+	}
+
+}
+
+
 gameState Table::executeMove(position &from, position &to, pc_color pcolor){
 	int points = this->isMoveValid(from, to, pcolor);
 	if(points >= 0){
 		Piece * p = this->getPiece(from,pcolor);
+		checkPiecePromotion(p, to, pcolor);
 		if(points > 0){
-			//TODO: remove pieces when they are consumed/killed
 			removeKilled(from,to,pcolor);
 			p->setPosition(to);
 			return GAME_POINT;

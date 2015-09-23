@@ -15,7 +15,7 @@ Human::Human(pc_color color, Table *table) : Player(color, table){
 	this->loadIMG("./img/moveto.png","moveto");
 	selected = false;
 	moveSelected = false;
-
+	isPlayerHuman = true;
 }
 
 move *Human::play(){
