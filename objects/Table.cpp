@@ -7,6 +7,7 @@
 
 #include "Table.h"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -137,7 +138,7 @@ gameState Table::executeMove(position &from, position &to, pc_color pcolor){
 
 /* Check if a movement is valid, sends two positions
  * returns int.
- * assumes white pieces are always at the bottom
+ *
  * ret:
  * 			0: ok
  * 		   -1: invalid
@@ -152,73 +153,110 @@ int Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 	bool isLeftMove = (initial.first > final.first)?true:false;
   	bool hasPieceBetween = false;
 
-	//playing from top
-	if(this->getPlayerUp() == pcolor){
-		if(isLeftMove){
-			position pLook = initial;
-			pLook.first -= 1;
-			pLook.second += 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy == NULL &&
-			   final.second == pLook.second &&
-			   final.first == pLook.first)
-				return 0;
-			else if(enemy != NULL &&
-					final.second == pLook.second + 1 &&
-					final.first == pLook.first - 1)
-				return 1;
+	if(!isKing){
+		//playing from top
+		if(this->getPlayerUp() == pcolor){
+			if(isLeftMove){
+				position pLook = initial;
+				pLook.first -= 1;
+				pLook.second += 1;
+				Piece *enemy = this->getPiece(pLook, otherColor);
+				if(enemy == NULL &&
+				   final.second == pLook.second &&
+				   final.first == pLook.first)
+					return 0;
+				else if(enemy != NULL &&
+						final.second == pLook.second + 1 &&
+						final.first == pLook.first - 1)
+					return 1;
+			}else{
+				position pLook = initial;
+				pLook.first += 1;
+				pLook.second += 1;
+				Piece *enemy = this->getPiece(pLook, otherColor);
+				if(enemy == NULL &&
+				   final.second == pLook.second &&
+				   final.first == pLook.first)
+					return 0;
+				else if(enemy != NULL &&
+						final.second == pLook.second + 1 &&
+						final.first == pLook.first + 1)
+					return 1;
+			}
 		}else{
-			position pLook = initial;
-			pLook.first += 1;
-			pLook.second += 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy == NULL &&
-			   final.second == pLook.second &&
-			   final.first == pLook.first)
-				return 0;
-			else if(enemy != NULL &&
-					final.second == pLook.second + 1 &&
+		//playing from bottom
+			if(isLeftMove){
+				position pLook = initial;
+				pLook.first -= 1;
+				pLook.second -= 1;
+				Piece *enemy = this->getPiece(pLook, otherColor);
+				if(enemy == NULL &&
+					final.second == pLook.second &&
+					final.first == pLook.first)
+					return 0;
+				else if(enemy != NULL &&
+					final.second == pLook.second - 1 &&
+					final.first == pLook.first - 1)
+					return 1;
+			}else{
+				position pLook = initial;
+				pLook.first += 1;
+				pLook.second -= 1;
+				Piece *enemy = this->getPiece(pLook, otherColor);
+				if(enemy == NULL &&
+					final.second == pLook.second &&
+					final.first == pLook.first)
+					return 0;
+				else if(enemy != NULL &&
+					final.second == pLook.second - 1 &&
 					final.first == pLook.first + 1)
-				return 1;
-		}
-
+					return 1;
+				}
+			}
 	}else{
-	//playing from bottom
-		if(isLeftMove){
-			position pLook = initial;
-			pLook.first -= 1;
-			pLook.second -= 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy == NULL &&
-			   final.second == pLook.second &&
-			   final.first == pLook.first)
-				return 0;
-			else if(enemy != NULL &&
-					final.second == pLook.second - 1 &&
-					final.first == pLook.first - 1)
-				return 1;
-		}else{
-			position pLook = initial;
-			pLook.first += 1;
-			pLook.second -= 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy == NULL &&
-			   final.second == pLook.second &&
-			   final.first == pLook.first)
-				return 0;
-			else if(enemy != NULL &&
-					final.second == pLook.second - 1 &&
-					final.first == pLook.first + 1)
-				return 1;
+		//check if move is diagonal and ends inside the table
+		if(final.second - initial.second == final.first - initial.second &&
+		   final.first >= 0 && final.first <= 7 &&
+		   final.second >= 0 && final.second <= 7 &&
+		   final.first != initial.first){
+			//now check for other pieces on the path
+			//and on target case
+			if(this->getPieceAt(final) != NULL){
+			    return -1;
+			}
+			int dX;
+			int dY;
+			dX = (final.first - initial.first)/abs(final.first - initial.first);
+			dY = (final.second- initial.second)/abs(final.second - initial.second);
+			int i = initial.first + dX;
+			int j = initial.second + dY;
+			//search for pieces on the line!
+			for(i,j; i != final.first && j != final.second; i += dX, j += dY){
+				position pTemp;
+				pTemp.first = i;
+				pTemp.second = j;
+				Piece * p = this->getPieceAt(pTemp);
+				if(p != NULL){
+					if(p->getColor() == pcolor){
+						return -1;
+					}else if(i == final.first - dX &&
+						 j == final.second -dY){
+						return 1;					
+					}else{
+						return -1;
+					}
+
+				}
+			}
+			return 0;
+		
 		}
+	
 	}
-	//TODO: implement king movement
 	return -1;
 }
 
-/* Execute a valid move, sends two positions
- * returns bool.
- * assumes white pieces are always at the bottom
+/* Remove a killed piece from the table
  *
  */
 void Table::removeKilled(position &initial, position &final, pc_color pcolor){
@@ -227,55 +265,14 @@ void Table::removeKilled(position &initial, position &final, pc_color pcolor){
 	pc_color otherColor = (pcolor == WHITE)?BLACK:WHITE;
 	bool isLeftMove = (initial.first > final.first)?true:false;
   	bool hasPieceBetween = false;
-
-	//playing from top
-	if(this->getPlayerUp() == pcolor){
-		if(isLeftMove){
-			position pLook = initial;
-			pLook.first -= 1;
-			pLook.second += 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy != NULL &&
-					final.second == pLook.second + 1 &&
-					final.first == pLook.first - 1){
-				//remove enemy
-				removePiece(enemy);
-			}
-		}else{
-			position pLook = initial;
-			pLook.first += 1;
-			pLook.second += 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy != NULL &&
-					final.second == pLook.second + 1 &&
-					final.first == pLook.first + 1){
-				removePiece(enemy);
-			}
-		}
-
-	}else{
-	//playing from bottom
-		if(isLeftMove){
-			position pLook = initial;
-			pLook.first -= 1;
-			pLook.second -= 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy != NULL &&
-			   final.second == pLook.second - 1 &&
-			   final.first == pLook.first - 1){
-				removePiece(enemy);
-			}
-		}else{
-			position pLook = initial;
-			pLook.first += 1;
-			pLook.second -= 1;
-			Piece *enemy = this->getPiece(pLook, otherColor);
-			if(enemy != NULL &&
-			   final.second == pLook.second - 1 &&
-			   final.first == pLook.first + 1){
-				removePiece(enemy);
-			}
-		}
+	int dX = (final.first - initial.first)/abs(final.first - initial.first);
+	int dY = (final.second - initial.second)/abs(final.second - initial.second);
+	position toLook = final;
+	toLook.first -= dX;
+	toLook.second -= dY;
+	Piece *toKill = this->getPieceAt(toLook);
+	if(toKill != NULL && toKill->getColor() != pcolor){
+		removePiece(toKill);
 	}
 }
 
