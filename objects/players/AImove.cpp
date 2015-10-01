@@ -35,8 +35,8 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 			while(canMove){
 				move.first += dX;
 				move.second += dY;
-				if(move.first >= 0 && move.first <= 7 &&
-  				   move.second >= 0 && move.second <= 7){
+				if(move.first < 0 || move.first > 7 ||
+  				   move.second < 0 || move.second > 7){
 					canMove = false;
 					continue;
 				}
