@@ -17,9 +17,47 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 	int dScore = (this->color == pieceColor)?1:-1;
 	
 	if(p.isKing()){
-		//TODO: logic for king
+		for(int i = 0; i < 4; i++){
+		//generate four possible directions
+			int dX, dY;
+			if(i == 0){
+				dX = 1; dY = 1;
+			}else if(i == 1){
+				dX = 1; dY = -1;
+			}else if(i == 2){
+				dX = -1; dY = 1;
+			}else if(i == 3){
+				dX = -1; dY = -1;
+			}
+			bool canMove = true;
+			bool wasLastPieceEnemy = false;
+			position move = p.getPosition();
+			while(canMove){
+				move.first += dX;
+				move.second += dY;
+				Piece *pe = table->getPieceAt(move);
+				if(pe == NULL){
+					if(wasLastPieceEnemy){
+						//kill & move!
+						AImove *pMove = new AImove(pNow, move, 1 * dScore, parent);
+						moveList.push_back(pMove);
+						canMove = false;
+					}else{
+						AImove *pMove = new AImove(pNow, move, 0, parent);
+						moveList.push_back(pMove);
+					}
+				}else if(pe->getColor() != this->color &&
+					 wasLastPieceEnemy != true){
+					wasLastPieceEnemy = true;
+				}else if(pe->getColor() == this->color){
+					canMove = false;
+				}else{
+					canMove = false;
+				}
+			}
+		
+		}
 	}else{
-		//TODO: a piece can only move down until it is a king
 		position possible1 = pNow;
 		position possible2 = pNow;
 		possible1.second += dPos;

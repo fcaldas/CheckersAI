@@ -35,6 +35,8 @@ public:
 
 	void setPosition(position p);
 
+	position getPosition();
+
 	bool isKing();
 };
 

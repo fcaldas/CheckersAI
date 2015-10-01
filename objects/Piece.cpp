@@ -44,3 +44,10 @@ void Piece::setPosition(position p){
 	this->x = p.first;
 	this->y = p.second;
 }
+
+position Piece::getPosition(){
+	position p;
+	p.first = this->getX();
+	p.second = this->getY();
+	return p;
+}
