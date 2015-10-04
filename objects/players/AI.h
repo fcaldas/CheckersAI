@@ -15,6 +15,9 @@
 
 using namespace std;
 
+#define POINT_KILL 1
+#define POINT_KILL_KING 2
+#define POINT_PROMOTE 1
 class AImove{
 public:
 	move m;

@@ -59,6 +59,8 @@ void Game::play(){
 			}else if(gs == GAME_POINT && aPlayer->isHuman() == false){
 				SDL_Delay(500);
 			}
+		}else{
+			cout<<"Invalid move to : "<<pMove->end.first <<","<<pMove->end.second <<endl;
 		}
 		delete pMove;
 	}

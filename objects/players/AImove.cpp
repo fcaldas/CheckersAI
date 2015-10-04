@@ -15,7 +15,7 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 		
 	int dPos = (pieceColor == table->getPlayerUp())?1:-1;
 	int dScore = (this->color == pieceColor)?1:-1;
-	
+
 	if(p.isKing()){
 		for(int i = 0; i < 4; i++){
 		//generate four possible directions
@@ -60,7 +60,7 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 					canMove = false;
 				}
 			}
-		
+
 		}
 	}else{
 		position possible1 = pNow;
@@ -71,9 +71,15 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 		possible2.first += 1;
 		if(table->getPieceAt(possible1) == NULL){
 			if(this->checkPositionValid(possible1)){
-				AImove *  pMove = new AImove(pNow, possible1, 0, parent);
-				moveList.push_back(pMove);
+				if(possible1.second == 7 || possible1.second == 0){
+					AImove *  pMove = new AImove(pNow, possible1, POINT_PROMOTE, parent);
+					moveList.push_back(pMove);
+				}else{
+					AImove *  pMove = new AImove(pNow, possible1, 0, parent);
+					moveList.push_back(pMove);
+				}
 			}
+		//there is an enemy there
 		}else if(table->getPieceAt(possible1)->getColor() != this->color ){
 			//check next case!
 			cout<<"On P1C2"<<endl;
@@ -90,8 +96,13 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 
 		if(table->getPieceAt(possible2) == NULL){
 			if(this->checkPositionValid(possible2)){
-				AImove * pMove = new AImove(pNow, possible2,0, parent);
-				moveList.push_back(pMove);
+				if(possible2.second == 7 || possible2.second == 0){
+					AImove *  pMove = new AImove(pNow, possible2, POINT_PROMOTE, parent);
+					moveList.push_back(pMove);
+				}else{
+					AImove * pMove = new AImove(pNow, possible2,0, parent);
+					moveList.push_back(pMove);
+				}
 			}
 		}else if(table->getPieceAt(possible2)->getColor() != this->color ){
 			//check next case!
