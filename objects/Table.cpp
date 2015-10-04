@@ -214,8 +214,7 @@ int Table::isMoveValid(position &initial, position &final, pc_color pcolor){
 				}
 			}
 	}else{
-		//check if move is diagonal and ends inside the table
-		if(final.second - initial.second == final.first - initial.second &&
+		if(abs(final.second - initial.second) == abs(final.first - initial.first) &&
 		   final.first >= 0 && final.first <= 7 &&
 		   final.second >= 0 && final.second <= 7 &&
 		   final.first != initial.first){
