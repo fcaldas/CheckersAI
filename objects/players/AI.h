@@ -12,6 +12,7 @@
 #include "../Piece.h"
 #include <iostream>
 #include <vector>
+#include "AITable.h"
 
 using namespace std;
 
@@ -28,10 +29,10 @@ public:
 
 	vector<AImove *> next;
 
-	AImove(position from, position to, int score, AImove * parent);
+	AITable tableGame;
 
+	AImove(position from, position to, int score, AImove * parent, AITable oTable);
 
-	
 };
 
 class AI : public Player {

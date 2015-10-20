@@ -15,6 +15,7 @@
 using namespace std;
 
 class Drawable {
+
 private:
 	map<string, SDL_Surface* > surfaces;
 

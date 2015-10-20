@@ -14,7 +14,7 @@
 typedef pair<int,int> position;
 
 class Piece{
-	friend class Table;
+	friend class TableBase;
 private:
 
 	int x, y;

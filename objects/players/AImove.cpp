@@ -1,15 +1,24 @@
 #include "AI.h"
+#include "AITable.h"
 
-AImove::AImove(position from, position to, int score, AImove * parent){
+AImove::AImove(position from, position to, int score, AImove * parent, AITable tnew){
 	this->score = score;
 	m.start = from;
 	m.end = to;
 	this->previous = parent;
+	this->tableGame = tnew;
 }
-
 
 vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 	vector<AImove *> moveList;
+	TableBase * table;
+
+	//go to parent level to get table
+	if(parent == NULL)
+		table = this->table;
+	else
+		table = &(parent->tableGame);
+
 	pc_color pieceColor = p.getColor();
 	position pNow(p.getX(),p.getY());
 		
@@ -44,11 +53,15 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 				if(pe == NULL){
 					if(wasLastPieceEnemy){
 						//kill & move!
-						AImove *pMove = new AImove(pNow, move, 1 * dScore, parent);
+						AITable newTable(*(table));
+						newTable.executeMove(pNow, move, p.getColor());
+						AImove *pMove = new AImove(pNow, move, 1 * dScore, parent, newTable);
 						moveList.push_back(pMove);
 						canMove = false;
 					}else{
-						AImove *pMove = new AImove(pNow, move, 0, parent);
+						AITable newTable(*(table));
+						newTable.executeMove(pNow, move, p.getColor());
+						AImove *pMove = new AImove(pNow, move, 0, parent, newTable);
 						moveList.push_back(pMove);
 					}
 				}else if(pe->getColor() != this->color &&
@@ -72,10 +85,14 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 		if(table->getPieceAt(possible1) == NULL){
 			if(this->checkPositionValid(possible1)){
 				if(possible1.second == 7 || possible1.second == 0){
-					AImove *  pMove = new AImove(pNow, possible1, POINT_PROMOTE, parent);
+					AITable newTable(*(table));
+					newTable.executeMove(pNow, possible1, p.getColor());
+					AImove *  pMove = new AImove(pNow, possible1, POINT_PROMOTE, parent, newTable);
 					moveList.push_back(pMove);
 				}else{
-					AImove *  pMove = new AImove(pNow, possible1, 0, parent);
+					AITable newTable(*(table));
+					newTable.executeMove(pNow, possible1, p.getColor());
+					AImove *  pMove = new AImove(pNow, possible1, 0, parent, newTable);
 					moveList.push_back(pMove);
 				}
 			}
@@ -88,7 +105,9 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 			possible1C2.first -= 1;
 			if(table->getPieceAt(possible1C2) == NULL){
 				if(this->checkPositionValid(possible1C2)){
-					AImove *pMove = new AImove(pNow, possible1C2, 1 * dScore, parent);
+					AITable newTable(*(table));
+					newTable.executeMove(pNow, possible1C2, p.getColor());
+					AImove *pMove = new AImove(pNow, possible1C2, 1 * dScore, parent, newTable);
 					moveList.push_back(pMove);
 				}
 			}
@@ -97,10 +116,14 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 		if(table->getPieceAt(possible2) == NULL){
 			if(this->checkPositionValid(possible2)){
 				if(possible2.second == 7 || possible2.second == 0){
-					AImove *  pMove = new AImove(pNow, possible2, POINT_PROMOTE, parent);
+					AITable newTable(*(table));
+					newTable.executeMove(pNow, possible2, p.getColor());
+					AImove *  pMove = new AImove(pNow, possible2, POINT_PROMOTE, parent, newTable);
 					moveList.push_back(pMove);
 				}else{
-					AImove * pMove = new AImove(pNow, possible2,0, parent);
+					AITable newTable(*(table));
+					newTable.executeMove(pNow, possible2, p.getColor());
+					AImove * pMove = new AImove(pNow, possible2,0, parent, newTable);
 					moveList.push_back(pMove);
 				}
 			}
@@ -112,7 +135,9 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 			possible2C2.first += 1;
 			if(table->getPieceAt(possible2C2) == NULL){
 				if(this->checkPositionValid(possible2C2)){
-					AImove * pMove = new AImove(pNow, possible2C2, 1 * dScore, parent);
+					AITable newTable(*(table));
+					newTable.executeMove(pNow, possible2C2, p.getColor());
+					AImove * pMove = new AImove(pNow, possible2C2, 1 * dScore, parent, newTable);
 					moveList.push_back(pMove);
 				}
 			}
