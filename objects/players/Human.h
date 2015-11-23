@@ -14,11 +14,11 @@ class Human : public Player {
 	position selected_case;
 	bool selected;
 	bool moveSelected;
-	move *moveToExecute;
+	GameMove *moveToExecute;
 public:
 	Human(pc_color color, Table *table);
 
-	move *play();
+	GameMove *play();
 
 	void draw(SDL_Surface* screen);
 

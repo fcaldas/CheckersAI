@@ -99,7 +99,6 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 		//there is an enemy there
 		}else if(table->getPieceAt(possible1)->getColor() != this->color ){
 			//check next case!
-			cout<<"On P1C2"<<endl;
 			position possible1C2 = possible1;
 			possible1C2.second += dPos;
 			possible1C2.first -= 1;
@@ -129,7 +128,6 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 			}
 		}else if(table->getPieceAt(possible2)->getColor() != this->color ){
 			//check next case!
-			cout<<"On P2C2"<<endl;
 			position possible2C2 = possible2;
 			possible2C2.second += dPos;
 			possible2C2.first += 1;

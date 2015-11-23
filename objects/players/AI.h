@@ -21,7 +21,7 @@ using namespace std;
 #define POINT_PROMOTE 1
 class AImove{
 public:
-	move m;
+	GameMove m;
 
 	int score;
 
@@ -37,13 +37,13 @@ public:
 
 class AI : public Player {
 private:
-	int maxDepth;
+	const int maxDepth = 4;
 	bool checkPositionValid(position &p);
-
+	void clearTree(vector<AImove *> &tree);
 public:
 	AI(pc_color color, Table *table);
 
-	move * play();
+	GameMove * play();
 
 	void draw(SDL_Surface* screen);
 

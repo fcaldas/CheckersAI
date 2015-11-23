@@ -22,7 +22,7 @@ public:
 
 	virtual ~Player();
 
-	virtual move *play() = 0;
+	virtual GameMove *play() = 0;
 
 	virtual void click(int x, int y) = 0;
 
@@ -33,6 +33,8 @@ public:
 	pc_color getColor();
 
 	vector<Piece> * getPieces();
+
+	vector<Piece> * getPieces(TableBase &t);
 
 	bool isHuman();
 };

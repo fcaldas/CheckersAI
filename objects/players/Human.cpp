@@ -18,7 +18,7 @@ Human::Human(pc_color color, Table *table) : Player(color, table){
 	isPlayerHuman = true;
 }
 
-move *Human::play(){
+GameMove *Human::play(){
 	if(this->moveSelected == true){
 		cout<<"move consumed!"<<flush;
 		this->moveSelected = false;
@@ -47,7 +47,7 @@ void Human::click(int x, int y){
 		if(this->table->isMoveValid(selected_case, pos, this->color) >= 0 &&
 		   this->moveSelected == false){
 			this->moveSelected = true;
-			moveToExecute = new move;
+			moveToExecute = new GameMove;
 			moveToExecute->start = selected_case;
 			moveToExecute->end = pos;
 			cout<<"Move set at player"<<endl;

@@ -34,3 +34,9 @@ vector<Piece> * Player::getPieces(){
 		return &(table->pcWhite);
 	return &(table->pcBlack);
 }
+
+vector<Piece> * Player::getPieces(TableBase &t){
+	if(this->color == WHITE)
+		return &(t.pcWhite);
+	return &(t.pcBlack);
+}

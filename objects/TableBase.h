@@ -13,7 +13,7 @@
 #ifndef TABLEBASE_H_
 #define TABLEBASE_H_
 
-class move{
+class GameMove{
 public:
 	position start;
 	position end;

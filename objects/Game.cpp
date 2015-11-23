@@ -40,7 +40,7 @@ void Game::click(int x, int y){
 void Game::play(){
 	Player *aPlayer = (this->active_player == BLACK)? player_black: player_white;
 
-	move * pMove = aPlayer->play();
+	GameMove * pMove = aPlayer->play();
 
 	//check if player returned a movement
 	if(pMove != NULL){
