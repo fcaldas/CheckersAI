@@ -8,6 +8,7 @@
 #include "AI.h"
 #include <iostream>
 #include <queue>
+#include <limits.h>
 
 using namespace std;
 
@@ -62,20 +63,66 @@ GameMove * AI::play(){
 		nextList.clear();
 	}
 
-	//TODO: return movement from minimax
+	//get best move in minimax
+	GameMove * retMove = new GameMove();
+	AImove *aiMove = getBestMove(moveList,0, this->maxDepth);
+	retMove->start = aiMove->m.start;
+	retMove->end   = aiMove->m.end;
 	cout<<"Size of list = "<<moveList.size()<<endl;
-	GameMove *retMove = new GameMove();
-	int max = INT32_MIN;
-	for(int i = 0; i < moveList.size(); i++){
-		if(moveList[i]->score > max){
-			retMove->start = moveList[i]->m.start;
-			retMove->end = moveList[i]->m.end;
-			max = moveList[i]->score;
-		}
-	}
+
 	this->clearTree(moveList);
 
 	return retMove;
+}
+
+AImove* AI::getBestMove (vector<AImove *> &moveList, int layer, int maxLayer){
+/////////////////////////////////////////
+//	Go through all layers and find min //
+//									   //
+//		__*__						   //
+//	   *     *   ------ layer 2		   //
+//	  / \   / \						   //
+//   *   * *   * ------ layer 3        //
+//									   //
+/////////////////////////////////////////
+	if(layer == maxLayer - 1){
+		//if we are in the last level we calculate the minimum
+		//and propagate it to the parent
+		int min = INT_MAX;
+		for(int j = 0; j < moveList.size(); j++){
+			if(moveList[j]->score < min)
+				min = moveList[j]->score;
+		}
+		moveList[0]->previous->score += min;
+		if(maxLayer != 1){
+			return NULL;
+		}
+	}else{
+		//if we're not in the last level we need to propagate
+		//the minimum calculation first
+		for(int j = 0; j < moveList.size(); j++)
+			getBestMove(moveList[j]->next,layer + 1, maxLayer);
+		int min = INT_MAX;
+		for(int j = 0; j < moveList.size(); j++){
+			if(moveList[j]->score < min)
+				min = moveList[j]->score;
+		}
+
+		if(moveList[0]->previous != NULL)
+			moveList[0]->previous->score += min;
+	}
+
+	if(layer == 0){
+		AImove *retMove;
+		int maxV = INT_MIN;
+		for(int i = 0; i < moveList.size(); i++)
+			if(moveList[i]->score > maxV){
+				maxV = moveList[i]->score;
+				retMove = moveList[i];
+			}
+		return retMove;
+	}
+	return NULL;
 }
 
 void AI::draw(SDL_Surface* screen){

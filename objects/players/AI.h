@@ -18,7 +18,7 @@ using namespace std;
 
 #define POINT_KILL 1
 #define POINT_KILL_KING 2
-#define POINT_PROMOTE 1
+#define POINT_PROMOTE 3
 class AImove{
 public:
 	GameMove m;
@@ -56,6 +56,8 @@ public:
 	std::vector<AImove*> possibleMovesForPiece(Piece &p, AImove *parent);
 
 	AImove* createTree(int treeDepth);
+
+	AImove* getBestMove (vector<AImove *> &moveList, int layer, int maxLayer);
 };
 
 #endif /* AI_H_ */

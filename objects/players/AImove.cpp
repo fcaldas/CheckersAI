@@ -1,6 +1,10 @@
 #include "AI.h"
 #include "AITable.h"
 
+
+/*
+ * Create a GameMove for AI
+ */
 AImove::AImove(position from, position to, int score, AImove * parent, AITable tnew){
 	this->score = score;
 	m.start = from;
@@ -87,7 +91,7 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 				if(possible1.second == 7 || possible1.second == 0){
 					AITable newTable(*(table));
 					newTable.executeMove(pNow, possible1, p.getColor());
-					AImove *  pMove = new AImove(pNow, possible1, POINT_PROMOTE, parent, newTable);
+					AImove *  pMove = new AImove(pNow, possible1, POINT_PROMOTE * dScore, parent, newTable);
 					moveList.push_back(pMove);
 				}else{
 					AITable newTable(*(table));
@@ -117,7 +121,7 @@ vector<AImove *> AI::possibleMovesForPiece(Piece &p, AImove *parent){
 				if(possible2.second == 7 || possible2.second == 0){
 					AITable newTable(*(table));
 					newTable.executeMove(pNow, possible2, p.getColor());
-					AImove *  pMove = new AImove(pNow, possible2, POINT_PROMOTE, parent, newTable);
+					AImove *  pMove = new AImove(pNow, possible2, POINT_PROMOTE * dScore, parent, newTable);
 					moveList.push_back(pMove);
 				}else{
 					AITable newTable(*(table));
